@@ -1,11 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import {
+  decrementAction,
+  incrementAction,
+  resetAction,
+} from "@/utils/actions/counterActions";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function () {
-  const [count, setCount] = useState(0);
-
-  const handleIncrement = () => {
-    setCount((count) => count + 1);
+  const count = useSelector((state) => state.count);
+  const dispatch = useDispatch();
+  const incrementHandler = () => {
+    dispatch(incrementAction());
+  };
+  const decrementHandler = () => {
+    dispatch(decrementAction());
+  };
+  const resetHandler = () => {
+    dispatch(resetAction());
   };
 
   return (
@@ -18,15 +30,21 @@ export default function () {
           </div>
           <div className=" flex justify-around py-5">
             <button
-              onClick={handleIncrement}
+              onClick={incrementHandler}
               className=" px-5 py-2 bg-stone-600 rounded text-white "
             >
               Increment
             </button>
-            <button className=" px-5 py-2 bg-red-600 rounded text-white ">
+            <button
+              onClick={resetHandler}
+              className=" px-5 py-2 bg-red-600 rounded text-white "
+            >
               Reset
             </button>
-            <button className=" px-5 py-2 bg-stone-600 rounded text-white ">
+            <button
+              onClick={decrementHandler}
+              className=" px-5 py-2 bg-stone-600 rounded text-white "
+            >
               Decrement
             </button>
           </div>
